@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+<!-- html注释，在浏览器源码中应该能看到 -->
+{# jinja的注释，不可见 #}
+{% block content %}
+<ul class="article-list">
+    <li>
+        Page Not Found - 404
+        <span class="float-right">
+            <a href="{{ url_for('index') }}">Go Back</a>
+        </span>
+    </li>
+</ul>
+{% endblock %}

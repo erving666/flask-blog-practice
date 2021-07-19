@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<p>共 {{ articles|length() }} 篇博客</p>
+  
+{% if current_user.is_authenticated %}
+<a class="btn" href="{{url_for('newpost')}}">NewPost</a> {% endif %}
+
+
+<ul class="article-list">
+    {% for article in articles %}
+    <!-- <a href=""> -->
+    <li><a style="text-decoration: none;" href="{{url_for('detail', article_id=article.id)}}">{{ article.title }} ({{
+            article.publicDate }}</a>)
+        <span class="float-right">
+            {% if current_user.is_authenticated %}
+
+            <a class="btn" href="{{ url_for('edit', article_id=article.id) }}">Edit</a>
+
+            <form class="inline-form" method="post" action="{{ url_for('delete', article_id=article.id) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+
+            {% endif %}
+
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
