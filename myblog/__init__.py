@@ -1,9 +1,10 @@
 import os, sys  # os,sys
-from flask import Flask,escape
+from flask import Flask,escape,Blueprint
 from flask_sqlalchemy import SQLAlchemy  # 导入拓展类，有时找不到模块需要刷新一下
 import pymysql
 pymysql.install_as_MySQLdb() # 兼容mysqldb
 from flask_login import LoginManager
+import db
 
 app = Flask(__name__)
 
@@ -32,5 +33,5 @@ def inject_user():  # 函数名可以随意修改
     return dict(user=user)  # 需要返回字典，等同于 return {'user': user}
 
 
-from myblog import views, models, errors, commands
+from myblog import views, models
 # 在构造文件中，为了让视图函数、错误处理函数和命令函数注册到程序实例上，我们需要在这里导入这几个模块。但是因为这几个模块同时也要导入构造文件中的程序实例，为了避免循环依赖（A 导入 B，B 导入 A），我们把这一行导入语句放到构造文件的结尾。
